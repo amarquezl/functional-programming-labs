@@ -10,10 +10,11 @@ import org.junit.jupiter.api.Test;
 
 class LambdasLab {
 	
-	List<Integer> filterOddNumbers(int[] array) {
+	public static List<Integer> filterNumbers(int[] array, Searchable obj) {
 		List<Integer> result = new ArrayList<>();
 		for(int val:array) {
-			if(val%2==1) {
+			//if(val%2==1) {
+			if(obj.test(val)) {	
 				result.add(val);
 			}
 		}
@@ -22,8 +23,9 @@ class LambdasLab {
 	
 
 	@Test
-	void filterOddNumbersTest() {
-		List<Integer> result = filterOddNumbers(new int[]{1,1,2,3,5,8,13,21});
+	public static void filterOddNumbersTest() {
+		List<Integer> result = filterNumbers(new int[]{1,1,2,3,5,8,13,21}, (c) -> c%2==1);
+		System.out.println(result);
 		Assertions.assertEquals(6, result.size());
 	}
 	
@@ -34,11 +36,21 @@ class LambdasLab {
 	
 	//TODO: complete this test to filter even numbers
 	@Test
-	void filterEvenNumbersTest() {
-		
-		//List<Integer> result = filterNumbers(new int[]{1,1,2,3,5,8,13,21},REPLACE_WITH_LAMBDA);
-		
-		//Assertions.assertEquals(2, result.size());
+	public static void filterEvenNumbersTest() {
+		List<Integer> result = filterNumbers(new int[]{1,1,2,3,5,8,13,21}, (c) -> c%2==0);
+		System.out.println(result);
+		Assertions.assertEquals(2, result.size());
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println("Testing");
+		filterOddNumbersTest();
+		filterEvenNumbersTest();
 	}
 
+}
+
+interface Searchable {
+	boolean test(int c);
 }
